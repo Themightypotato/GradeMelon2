@@ -66,7 +66,7 @@ interface DocumentsProps {
 	client: any;
 }
 
-export default function Documents({ client }: DocumentsProps) {
+export default function Documents({ client, login }: DocumentsProps) {
 	const router = useRouter();
 	const [documents, setDocuments] = useState([]);
 	const [loading, setLoading] = useState(true);
@@ -77,9 +77,12 @@ export default function Documents({ client }: DocumentsProps) {
 			setLoading(false)})
 		} catch(error) {
 		    console.log(error);
-			if (localStorage.getItem("remember") === "false") {
-				router.push("/login");
+			if (localStorage.getItem("username")!==null&&error instanceof TypeError) {
+                login(localStorage.getItem("username"),localStorage.getItem("password"),true);
 			}
+            else{
+                router.push("/login");
+                }
 		}
 	}, [client]);
     console.log("does this look empty to you?");

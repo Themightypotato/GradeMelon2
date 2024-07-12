@@ -31,6 +31,8 @@ export default function Login({
 	const [districts, setDisstricts] = useState(allDistricts);
 	const [trouble, setTrouble] = useState(false);
 
+
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		let success = await login(username, password, checkbox);
@@ -39,21 +41,23 @@ export default function Login({
 		}
 		await setPassword("");
 		if (success) {
-			await setUsername("");
+            router.push("/grades");
+
 		}
 	};
 
-	useEffect(() => {
-		if (client) {
-			router.push("/grades");
-		}
-	}, [client]);
+
 
 	useEffect(() => {
 		if (localStorage.getItem("remember") === "true") {
 			setCheckbox(true);
 		}
+        if (localStorage.getItem("username")!==null){
+            setUsername(localStorage.getItem("username"));
+            }
 	}, []);
+
+
 
 	const findDistricts = async () => {
 		StudentVue.findDistricts(zipCode)

@@ -50,7 +50,7 @@ function MyApp({ Component, pageProps }) {
 		await setLoading(true);
 		const student = new Client({username:username,password:password});
 		console.log(student);
-		await student.refresh()
+		return(await student.refresh()
 		    .then(async ()=>{
 				console.log(student);
 				await setClient(student);
@@ -80,7 +80,7 @@ function MyApp({ Component, pageProps }) {
 				}, 5000);
 				setLoading(false);
 			    return false;
-			});
+			}));
 
 	};
 
@@ -89,7 +89,6 @@ function MyApp({ Component, pageProps }) {
 		await router.push("/login");
 		await setStudentInfo(undefined);
 		await setGrades(undefined);
-		await localStorage.removeItem("username");
 		await localStorage.removeItem("password");
 	};
 
